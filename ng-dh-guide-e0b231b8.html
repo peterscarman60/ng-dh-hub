@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ng导航 · 杂志专题：稳定入口与页面说明</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f2f6f5;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    color: #1e2b2b;
+    line-height: 1.6;
+    padding: 2.4rem 1.6rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .magazine {
+    max-width: 1200px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 40px 40px 32px 32px;
+    box-shadow: 0 12px 30px rgba(0, 40, 30, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* hero 横幅 — 蓝绿渐变 + 网格 */
+  .hero {
+    background: linear-gradient(145deg, #0b3b3a 0%, #1d6b65 100%);
+    padding: 4rem 2.8rem 3.2rem;
+    color: white;
+    position: relative;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: -1px -1px;
+    border-bottom: 6px solid #b7d9d4;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.4rem;
+    color: #f0fcf9;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  .hero .sub {
+    font-size: 1.1rem;
+    opacity: 0.85;
+    font-weight: 350;
+    max-width: 600px;
+    border-left: 4px solid #b7d9d4;
+    padding-left: 1.2rem;
+    margin-top: 0.6rem;
+  }
+
+  .hero .meta-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    padding: 0.2rem 1rem;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    backdrop-filter: blur(2px);
+    margin-top: 1.2rem;
+  }
+
+  /* 卡片网格 */
+  .card-grid {
+    display: grid;
+    gap: 1.8rem;
+    padding: 2.8rem 2.8rem 1.6rem;
+  }
+
+  .card {
+    background: #ffffff;
+    border: 1px solid #d6e4e1;
+    border-radius: 28px;
+    padding: 2rem 2rem 2.2rem;
+    box-shadow: 0 6px 14px rgba(0, 50, 40, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(20, 80, 70, 0.08);
+    border-color: #1d6b65;
+  }
+
+  .card h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #0b3b3a;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .card h2 i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #1d6b65;
+    border-radius: 2px;
+    transform: rotate(45deg);
+    opacity: 0.6;
+  }
+
+  .card p {
+    color: #2a4040;
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .highlight {
+    background: #e7f3f0;
+    padding: 0.1rem 0.4rem;
+    border-radius: 6px;
+    color: #0b4b45;
+    font-weight: 450;
+  }
+
+  /* 页尾 — 访问提示 */
+  .footer-note {
+    background: #eef6f4;
+    padding: 2.4rem 2.8rem;
+    border-top: 2px solid #c8dbd7;
+    text-align: center;
+    font-size: 1rem;
+    color: #20423e;
+  }
+
+  .footer-note a {
+    color: #0b6b60;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 2px solid #b7d9d4;
+    transition: border-color 0.15s;
+  }
+
+  .footer-note a:hover {
+    border-bottom-color: #1d6b65;
+    color: #084a42;
+  }
+
+  .footer-note .small-meta {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    opacity: 0.6;
+    letter-spacing: 0.04em;
+  }
+
+  /* 响应式细节 */
+  @media (max-width: 720px) {
+    body { padding: 1.2rem 0.8rem; }
+    .hero {
+      padding: 2.8rem 1.6rem 2.4rem;
+      background-size: 30px 30px;
+    }
+    .hero h1 { font-size: 2rem; }
+    .hero .sub { font-size: 0.95rem; padding-left: 0.9rem; }
+    .card-grid { padding: 1.6rem 1.2rem; gap: 1.2rem; }
+    .card { padding: 1.6rem 1.2rem; border-radius: 24px; }
+    .card h2 { font-size: 1.3rem; }
+    .footer-note { padding: 1.8rem 1.2rem; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.6rem; }
+    .hero .sub { font-size: 0.9rem; }
+    .card p { font-size: 0.95rem; }
+  }
+
+  /* 额外修饰 — 卡片内引用风格 */
+  .insight {
+    display: inline-block;
+    background: #dcebe7;
+    border-radius: 40px;
+    padding: 0.2rem 1rem;
+    font-size: 0.8rem;
+    color: #1b5a52;
+    margin-top: 0.4rem;
+  }
+</style>
+</head>
+<body>
+<div class="magazine">
+
+  <!-- hero 横幅：背景说明 + 稳定入口 -->
+  <div class="hero">
+    <h1>稳定入口 · 页面说明</h1>
+    <div class="sub">
+      从一个简洁的导航开始，重新理解信息组织的方式。<br>
+      专题刊 · 第三期
+    </div>
+    <div class="meta-tag">🌿 蓝绿网格 · 杂志版</div>
+  </div>
+
+  <!-- 三段自然介绍：卡片网格 -->
+  <div class="card-grid">
+
+    <div class="card">
+      <h2><i></i> 目录即结构</h2>
+      <p>大多数导航站点只是堆叠链接，但真正稳定的入口应当像一本索引手册：分类清晰、命名克制、层级可预期。<strong class="highlight">ng导航</strong> 遵循这一原则——首页不追求视觉轰炸，而是提供可被依赖的“起点”。</p>
+      <p>每个分类栏位都经过语义取舍，避免冗余标签。当你需要快速定位一个工具或资源时，目录的稳定性比数量更重要。</p>
+      <div class="insight">📌 基于使用场景的模块设计</div>
+    </div>
+
+    <div class="card">
+      <h2><i></i> 页面说明与节奏</h2>
+      <p>好的导航页面会主动说明自己的边界：哪些内容被收录，以什么标准排序。在 <a href="https://ng-dh.com" style="color:#0b6b60; font-weight:450; text-decoration:none; border-bottom:1px solid #b7d9d4;">ng导航</a> 的页面中，你几乎看不到夸张的标语或闪烁的催促。每个板块都保留呼吸感，让浏览者自行判断下一步。</p>
+      <p>这种克制不是冷淡，而是对注意力的尊重。从“搜索引擎”到“开发工具”，说明文字被压缩到最低，但足以传达用途。</p>
+    </div>
+
+    <div class="card">
+      <h2><i></i> 承接与延续</h2>
+      <p>导航的深层价值在于“连接”。当你从一个入口跳转到下一个页面，中间不应该有认知断裂。<strong class="highlight">ng导航</strong> 在链接之间建立了一种平缓的节奏：相同的配色语言、稳定的新窗口打开行为、统一的图标风格——这些细节让浏览变成一种连贯的翻阅体验。</p>
+      <p>换句话说，它不只是一个列表，而是一套微型的浏览协议。首页所承载的，正是这套协议的序言。</p>
+      <div class="insight">🔗 链接即叙述</div>
+    </div>
+
+  </div>
+
+  <!-- 页尾访问提示 -->
+  <div class="footer-note">
+    <p>如果你正在寻找一个结构清晰、不打扰的导航起点，不妨将 <a href="https://ng-dh.com">ng导航</a> 加入书签栏。<br>它不会用弹窗或推荐干扰你的注意力，只安静地提供分类与链接。</p>
+    <span class="small-meta">杂志专题 · 稳定入口 · 第三版</span>
+  </div>
+
+</div>
+</body>
+</html>
